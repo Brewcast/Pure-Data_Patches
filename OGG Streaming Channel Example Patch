@@ -1,0 +1,287 @@
+#N canvas 14 22 1280 752 10;
+#X floatatom 784 655 5 0 0 0 - - -;
+#X text 827 655 connection state;
+#X msg 750 334 disconnect;
+#X msg 751 421 recover 0;
+#X msg 751 447 recover 1;
+#X msg 754 491 print;
+#X obj 772 1107 *~ 0;
+#X floatatom 794 1055 5 0 0 0 - - -;
+#X obj 794 1077 / 100;
+#X msg 751 395 recover -1;
+#X text 830 394 resume (default): mute audio and refill buffer;
+#X text 830 446 reconnect (disconnect and connect again);
+#X text 820 539 CREATION ARGUMENTS:;
+#X text 942 539 oggamp~ <graphic> <outlets> <buffersize>;
+#X text 849 560 <graphic> - turn graphical buffer status display on
+(1) or off (0 \, default);
+#X text 849 587 <outlets> - number of outlets (default = 2) \, mono
+to stereo and stereo to mono conversion supported;
+#X msg 531 55 \; pd dsp 1;
+#X msg 597 55 \; pd dsp 0;
+#X obj 531 29 loadbang;
+#X text 749 375 BEHAVIOUR ON BUFFER UNDERRUNS:;
+#X text 848 614 <buffersize> - size of circular buffer in kbytes (default
+= 256k);
+#X text 830 420 disconnect on buffer underrun;
+#N canvas 458 284 494 344 META 0;
+#X text 12 145 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
+Wilkes for Pd version 0.42.;
+#X text 12 125 AUTHOR Olaf Matthes;
+#X text 12 25 LICENSE LGPL;
+#X text 12 45 DESCRIPTION version 0.2 - Ogg Vorbis streaming client
+;
+#X text 12 5 KEYWORDS signal soundfile network;
+#X text 12 65 INLET_0 connect disconnect print recover;
+#X text 12 85 OUTLET_N signal;
+#X text 12 105 OUTLET_R float;
+#X restore 532 95 pd META;
+#X text 739 243 oggamp~ version 0.2 - Ogg Vorbis streaming client;
+#X floatatom 39 844 0 0 0 0 - - -;
+#X msg 240 478 disconnect;
+#X msg 239 613 print;
+#X floatatom 120 822 10 0 0 0 - - -;
+#X text 240 418 connect <host> <mountpoint> <port>;
+#X text 189 822 ogg pages;
+#X text 68 844 connection state;
+#X text 404 598 channels: 1 or 2 (default);
+#X text 236 565 vbr <samplerate> <channels> <quality>;
+#X text 356 587 quality settings: 0 - 1 (low - hi);
+#X text 245 700 possible tags: TITLE \, ARTIST \, PERFORMER \, DESCRIPTION
+\,;
+#X text 334 713 GENRE \, LOCATION \, COPYRIGHT \, CONTACT \, DATE;
+#X text 278 614 print current settings to console window;
+#X text 241 654 comment: <TAG> <content>;
+#X msg 243 678 ARTIST your_name;
+#X text 246 732 '_' (underline) or '=' (equal sign) will get replaced
+with spaces!;
+#X text 261 813 default is 2 channels and 512k;
+#X text 262 825 bytes buffer size;
+#X text 140 795 creation arguments: oggcast~ <channels> <buffer size>
+;
+#X text 235 522 vorbis <samplerate> <channels> <max.br> <nom.br> <min.br>
+;
+#X msg 240 388 server 1;
+#X text 301 389 choose new Icecast2 (final) as server type;
+#X text 36 59 OGGCast Send/Receive Patch;
+#X text 36 76 Stephen Surlin 2014;
+#X text 39 108 oggcast~ 0.2f - send Ogg Vorbis stream to IceCast2;
+#X obj 37 208 adc~ 1;
+#X text 35 40 Stream: ssch1.ogg;
+#X text 531 158 written by Olaf Matthes <olaf.matthes@gmx.de>;
+#X text 531 171 get source at http://www.akustische-kunst.de/;
+#X text 530 124 oggcast~ 0.2f - send Ogg Vorbis stream to IceCast2
+;
+#X text 529 141 oggamp~ version 0.2 - Ogg Vorbis streaming client;
+#X msg 235 539 vorbis 44100 1 144 128 96;
+#X msg 236 581 vbr 44100 1 0.2;
+#X obj 772 1138 dac~ 1;
+#X obj 792 999 loadbang;
+#X msg 795 1022 100;
+#X floatatom 175 321 6 0 0 0 - - -;
+#X text 222 324 dB;
+#X text 414 60 dsp ON/OFF;
+#X obj 396 79 dsp;
+#X floatatom 396 100 3 0 0 0 - - -;
+#X text 423 101 % cpu;
+#X obj 396 58 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 1 1
+;
+#X text 278 243 (periode between 2 output-events);
+#X msg 173 247 t_metro \$1;
+#X msg 173 289 t_release \$1;
+#X floatatom 173 226 9 50 500 0 - - -;
+#X floatatom 173 272 9 50 2000 0 - - -;
+#X text 281 282 (output_level decrements by about 8.6 dB = 63% during
+this;
+#X text 258 232 1.arg:<float>metrotime [ms] (default: 300 ms);
+#X text 258 271 2.arg:<float>releasetime [ms] (default: 300 ms);
+#X obj 92 270 vu 15 120 empty empty -1 -8 0 8 -66577 -1 1 0;
+#X obj 172 177 loadbang;
+#X msg 175 200 50;
+#X obj 48 584 *~ 0;
+#X floatatom 70 532 5 0 0 0 - - -;
+#X obj 70 554 / 100;
+#X floatatom 73 485 5 0 0 0 - - -;
+#X text 1823 54 Channel 1: SSCH1 Your password to broadcast to giss
+using the mounpoint /ssch1.ogg is: cwqp3 The user to broadcast to giss
+is 'source' The server to use to broadcast to giss is 'giss.tv' The
+port to use to broadcast to giss is '8000' Perhaps you need to know
+that this is an 'icecast2' server INFO FOR WATCHING / LISTENING THE
+STREAM The address to see/hear your stream will be http://giss.tv:8000/ssch1.ogg
+Channel 2: SSCH2 Your password to broadcast to giss using the mounpoint
+/ssch2.ogg is: n5rxp The user to broadcast to giss is 'source' The
+server to use to broadcast to giss is 'giss.tv' The port to use to
+broadcast to giss is '8000' Perhaps you need to know that this is an
+'icecast2' server INFO FOR WATCHING / LISTENING THE STREAM The address
+to see/hear your stream will be http://giss.tv:8000/ssch2.ogg Channel
+3: SSCH3 Your password to broadcast to giss using the mounpoint /ssch3.ogg
+is: dz900 The user to broadcast to giss is 'source' The server to use
+to broadcast to giss is 'giss.tv' The port to use to broadcast to giss
+is '8000' Perhaps you need to know that this is an 'icecast2' server
+INFO FOR WATCHING / LISTENING THE STREAM The address to see/hear your
+stream will be http://giss.tv:8000/ssch3.ogg;
+#X text 1822 29 Channel Information;
+#X obj 396 30 loadbang;
+#X floatatom 1354 651 5 0 0 0 - - -;
+#X text 1397 651 connection state;
+#X msg 1320 330 disconnect;
+#X msg 1321 417 recover 0;
+#X msg 1321 443 recover 1;
+#X msg 1324 487 print;
+#X obj 1402 1130 *~ 0;
+#X floatatom 1424 1078 5 0 0 0 - - -;
+#X obj 1424 1100 / 100;
+#X msg 1321 391 recover -1;
+#X text 1400 390 resume (default): mute audio and refill buffer;
+#X text 1400 442 reconnect (disconnect and connect again);
+#X text 1390 535 CREATION ARGUMENTS:;
+#X text 1512 535 oggamp~ <graphic> <outlets> <buffersize>;
+#X text 1419 556 <graphic> - turn graphical buffer status display on
+(1) or off (0 \, default);
+#X text 1419 583 <outlets> - number of outlets (default = 2) \, mono
+to stereo and stereo to mono conversion supported;
+#X text 1319 371 BEHAVIOUR ON BUFFER UNDERRUNS:;
+#X text 1418 610 <buffersize> - size of circular buffer in kbytes (default
+= 256k);
+#X text 1400 416 disconnect on buffer underrun;
+#X text 1309 239 oggamp~ version 0.2 - Ogg Vorbis streaming client
+;
+#X obj 1402 1161 dac~ 1;
+#X obj 1422 1022 loadbang;
+#X msg 1425 1045 100;
+#X msg 1318 292 connect giss.tv ssch3.ogg 8000;
+#X obj 1267 532 oggamp~ 0 1 512;
+#X obj 39 795 oggcast~ 1 128;
+#X obj 697 536 oggamp~ 0 1 128;
+#X obj 91 238 pvu~;
+#X obj 72 439 maxlib/scale -20 -5 0 90;
+#X floatatom 813 844 6 0 0 0 - - -;
+#X text 860 847 dB;
+#X text 916 766 (periode between 2 output-events);
+#X msg 811 770 t_metro \$1;
+#X msg 811 812 t_release \$1;
+#X floatatom 811 749 9 50 500 0 - - -;
+#X floatatom 811 795 9 50 2000 0 - - -;
+#X text 919 805 (output_level decrements by about 8.6 dB = 63% during
+this;
+#X text 896 755 1.arg:<float>metrotime [ms] (default: 300 ms);
+#X text 896 794 2.arg:<float>releasetime [ms] (default: 300 ms);
+#X obj 730 793 vu 15 120 empty empty -1 -8 0 8 -66577 -1 1 0;
+#X obj 810 700 loadbang;
+#X msg 813 723 50;
+#X obj 698 1080 *~ 0;
+#X floatatom 720 1028 5 0 0 0 - - -;
+#X obj 720 1050 / 100;
+#X floatatom 723 981 5 0 0 0 - - -;
+#X obj 729 761 pvu~;
+#X floatatom 1417 852 6 0 0 0 - - -;
+#X text 1464 855 dB;
+#X text 1520 774 (periode between 2 output-events);
+#X msg 1415 778 t_metro \$1;
+#X msg 1415 820 t_release \$1;
+#X floatatom 1415 757 9 50 500 0 - - -;
+#X floatatom 1415 803 9 50 2000 0 - - -;
+#X text 1523 813 (output_level decrements by about 8.6 dB = 63% during
+this;
+#X text 1500 763 1.arg:<float>metrotime [ms] (default: 300 ms);
+#X text 1500 802 2.arg:<float>releasetime [ms] (default: 300 ms);
+#X obj 1334 801 vu 15 120 empty empty -1 -8 0 8 -66577 -1 1 0;
+#X obj 1414 708 loadbang;
+#X msg 1417 731 50;
+#X obj 1302 1088 *~ 0;
+#X floatatom 1324 1036 5 0 0 0 - - -;
+#X obj 1324 1058 / 100;
+#X floatatom 1327 989 5 0 0 0 - - -;
+#X obj 1333 769 pvu~;
+#X obj 1326 943 maxlib/scale -40 -5 0 90;
+#X obj 722 935 maxlib/scale -50 -5 0 90;
+#X text 313 358 enter your Icecast server password;
+#X msg 240 357 passwd;
+#X msg 240 440 connect;
+#X msg 748 296 connect;
+#X connect 2 0 111 0;
+#X connect 3 0 111 0;
+#X connect 4 0 111 0;
+#X connect 5 0 111 0;
+#X connect 6 0 57 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 1;
+#X connect 9 0 111 0;
+#X connect 18 0 16 0;
+#X connect 25 0 110 0;
+#X connect 26 0 110 0;
+#X connect 38 0 110 0;
+#X connect 44 0 110 0;
+#X connect 49 0 78 0;
+#X connect 49 0 112 0;
+#X connect 55 0 110 0;
+#X connect 56 0 110 0;
+#X connect 58 0 59 0;
+#X connect 59 0 7 0;
+#X connect 60 0 113 0;
+#X connect 63 0 64 0;
+#X connect 66 0 63 0;
+#X connect 68 0 112 0;
+#X connect 69 0 112 0;
+#X connect 70 0 68 0;
+#X connect 71 0 69 0;
+#X connect 76 0 77 0;
+#X connect 77 0 70 0;
+#X connect 78 0 110 0;
+#X connect 79 0 80 0;
+#X connect 80 0 78 1;
+#X connect 81 0 79 0;
+#X connect 84 0 66 0;
+#X connect 87 0 109 0;
+#X connect 88 0 109 0;
+#X connect 89 0 109 0;
+#X connect 90 0 109 0;
+#X connect 91 0 105 0;
+#X connect 92 0 93 0;
+#X connect 93 0 91 1;
+#X connect 94 0 109 0;
+#X connect 106 0 107 0;
+#X connect 107 0 92 0;
+#X connect 108 0 109 0;
+#X connect 109 0 145 0;
+#X connect 109 0 149 0;
+#X connect 109 1 85 0;
+#X connect 110 0 24 0;
+#X connect 110 1 27 0;
+#X connect 111 0 131 0;
+#X connect 111 0 127 0;
+#X connect 111 1 0 0;
+#X connect 112 0 60 0;
+#X connect 112 0 75 0;
+#X connect 113 0 81 0;
+#X connect 114 0 151 0;
+#X connect 117 0 131 0;
+#X connect 118 0 131 0;
+#X connect 119 0 117 0;
+#X connect 120 0 118 0;
+#X connect 125 0 126 0;
+#X connect 126 0 119 0;
+#X connect 127 0 6 0;
+#X connect 128 0 129 0;
+#X connect 129 0 127 1;
+#X connect 130 0 128 0;
+#X connect 131 0 114 0;
+#X connect 131 0 124 0;
+#X connect 132 0 150 0;
+#X connect 135 0 149 0;
+#X connect 136 0 149 0;
+#X connect 137 0 135 0;
+#X connect 138 0 136 0;
+#X connect 143 0 144 0;
+#X connect 144 0 137 0;
+#X connect 145 0 91 0;
+#X connect 146 0 147 0;
+#X connect 147 0 145 1;
+#X connect 148 0 146 0;
+#X connect 149 0 132 0;
+#X connect 149 0 142 0;
+#X connect 150 0 148 0;
+#X connect 151 0 130 0;
+#X connect 153 0 110 0;
+#X connect 154 0 110 0;
+#X connect 155 0 111 0;
